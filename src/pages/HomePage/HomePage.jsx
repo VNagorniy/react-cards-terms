@@ -9,8 +9,7 @@ import { SearchInput } from '../../components/SearchInput';
 export const HomePage = () => {
 	const [questions, setQuestions] = useState([]);
 	const [searchValue, setSearchValue] = useState('');
-
-	const inputRef = useRef();
+	const [sortSelectValue, setSortSelectValue] = useState('');
 
 	const [getQuestions, isLoading, error] = useFetch(async (url) => {
 		const response = await fetch(`${API_URL}/${url}`);
@@ -25,12 +24,15 @@ export const HomePage = () => {
 	}, [questions, searchValue]);
 
 	useEffect(() => {
-		getQuestions('react');
-	}, []);
+		getQuestions(`react?${sortSelectValue}`);
+	}, [sortSelectValue]);
 
 	const onSearchChangeHandler = (e) => {
-		console.log(e.target.value);
 		setSearchValue(e.target.value);
+	};
+
+	const onSortSelectChangeHandler = (e) => {
+		setSortSelectValue(e.target.value);
 	};
 
 	return (
@@ -38,13 +40,13 @@ export const HomePage = () => {
 			<div className={cls.controlsContainer}>
 				<SearchInput value={searchValue} onChange={onSearchChangeHandler} />
 
-				<select value={'s'} onChange={() => {}} className={cls.select}>
+				<select value={sortSelectValue} onChange={onSortSelectChangeHandler} className={cls.select}>
 					<option value="">sort by</option>
 					<hr />
-					<option value="">level ASC</option>
-					<option value="">level DESC</option>
-					<option value="">completed ASC</option>
-					<option value="">completed DESC</option>
+					<option value="_sort=level">level ASC</option>
+					<option value="_sort=-level">level DESC</option>
+					<option value="_sort=completed">completed ASC</option>
+					<option value="_sort=-completed">completed DESC</option>
 				</select>
 			</div>
 
