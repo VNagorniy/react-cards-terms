@@ -1,6 +1,6 @@
 import cls from './HomePage.module.css';
 import { API_URL } from '../../../constants';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { QuestionCardList } from '../../components/QuestionCardList';
 import { Loader } from '../../components/Loader';
 import { useFetch } from '../../hooks/useFetch';
@@ -20,6 +20,10 @@ export const HomePage = () => {
 		return questions;
 	});
 
+	const cards = useMemo(() => {
+		return questions.filter((d) => d.question.toLowerCase().includes(searchValue.trim().toLowerCase()));
+	}, [questions, searchValue]);
+
 	useEffect(() => {
 		getQuestions('react');
 	}, []);
@@ -33,10 +37,21 @@ export const HomePage = () => {
 		<>
 			<div className={cls.controlsContainer}>
 				<SearchInput value={searchValue} onChange={onSearchChangeHandler} />
+
+				<select value={'s'} onChange={() => {}} className={cls.select}>
+					<option value="">sort by</option>
+					<hr />
+					<option value="">level ASC</option>
+					<option value="">level DESC</option>
+					<option value="">completed ASC</option>
+					<option value="">completed DESC</option>
+				</select>
 			</div>
+
 			{isLoading && <Loader />}
 			{error && <p>{error}</p>}
-			<QuestionCardList cards={questions} />
+			{cards.length === 0 && <p className={cls.noCardsInfo}>No cards...</p>}
+			<QuestionCardList cards={cards} />
 		</>
 	);
 };
