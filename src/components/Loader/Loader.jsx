@@ -7,3 +7,7 @@ export const Loader = () => {
 		</div>
 	);
 };
+
+export const SmallLoader = () => {
+	return <span class={cls.smallLoader}></span>;
+};
