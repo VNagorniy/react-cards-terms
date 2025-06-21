@@ -3,7 +3,7 @@ import { MainLayout } from './components/MainLayout';
 import { HomePage } from './pages/HomePage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { QuestionPage } from './pages/QuestionPage';
-import { AddQuestionPage } from './pages/AddQuestionPage';
+import { AddQuestionPageLazy } from './pages/AddQuestionPage';
 
 function App() {
 	return (
@@ -16,7 +16,7 @@ function App() {
 						path="/addquestion"
 						element={
 							<div>
-								<AddQuestionPage />
+								<AddQuestionPageLazy />
 							</div>
 						}
 					></Route>
