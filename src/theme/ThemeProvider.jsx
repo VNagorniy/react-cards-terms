@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react';
-import { THEME_STORAGE } from '../../constants';
+import { THEME_STORAGE } from '../constants';
 
 export const ThemeContext = createContext(null);
 

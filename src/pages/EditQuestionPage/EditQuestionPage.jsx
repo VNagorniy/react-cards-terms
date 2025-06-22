@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { API_URL } from '../../../constants';
+import { API_URL } from '../../constants';
 import { useFetch } from '../../hooks/useFetch';
 import { useEffect, useState } from 'react';
 import { Loader } from '../../components/Loader';

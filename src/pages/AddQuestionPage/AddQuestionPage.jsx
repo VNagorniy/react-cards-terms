@@ -2,7 +2,7 @@ import { useActionState } from 'react';
 import cls from './AddQuestionPage.module.css';
 import { toast } from 'react-toastify';
 import { delayFn } from '../../helpers/delayFn';
-import { API_URL } from '../../../constants';
+import { API_URL } from '../../constants';
 import { Loader } from '../../components/Loader/Loader';
 import { QuestionForm } from '../../components/QuestionForm';
 

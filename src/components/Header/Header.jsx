@@ -3,7 +3,7 @@ import ReactLogo from '../../assets/react.svg';
 import { Button } from '../Button';
 import cls from './Header.module.css';
 import { useAuth } from '../../hooks/useAuth';
-import { AUTH_STORAGE } from '../../../constants';
+import { AUTH_STORAGE } from '../../constants';
 import { ThemeToggler } from '../../features/ThemeToggler';
 
 export const Header = () => {

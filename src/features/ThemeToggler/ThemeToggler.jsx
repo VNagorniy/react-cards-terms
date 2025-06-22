@@ -1,4 +1,4 @@
-import { THEME_STORAGE } from '../../../constants';
+import { THEME_STORAGE } from '../../constants';
 import { useTheme } from '../../hooks/useTheme';
 import cls from './ThemeToggler.module.css';
 

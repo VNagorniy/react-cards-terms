@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react';
-import { AUTH_STORAGE } from '../../../constants';
+import { AUTH_STORAGE } from '../../constants';
 
 export const AuthContext = createContext(null);
 
