@@ -10,11 +10,16 @@ import { Button } from '../../components/Button';
 const DEFAULT_PER_PAGE = 10;
 
 export const HomePage = () => {
-	const [searchParams, setSearchParams] = useState(`?_page=1&_per_page=${DEFAULT_PER_PAGE}`);
-	const [questions, setQuestions] = useState({});
+	const [searchParams, setSearchParams] = useState(`?_page=1&_limit=${DEFAULT_PER_PAGE}`);
+	const [questions, setQuestions] = useState({
+		data: [],
+		pages: 1,
+		next: null,
+		last: 1
+	});
 	const [searchValue, setSearchValue] = useState('');
 	const [sortSelectValue, setSortSelectValue] = useState('');
-	const [countSelectValue, setCountSelectValue] = useState('');
+	const [countSelectValue, setCountSelectValue] = useState(DEFAULT_PER_PAGE.toString());
 
 	const controlsContainerRef = useRef();
 
@@ -22,11 +27,31 @@ export const HomePage = () => {
 
 	const [getQuestions, isLoading, error] = useFetch(async (url) => {
 		const response = await fetch(`${API_URL}/${url}`);
-		const questions = await response.json();
+		const data = await response.json();
 
-		setQuestions(questions);
-		return questions;
+		const totalCount = response.headers.get('x-total-count');
+		const perPage = Number(getParamFromUrl(url, '_limit')) || DEFAULT_PER_PAGE;
+		const page = Number(getParamFromUrl(url, '_page')) || 1;
+		const pages = totalCount ? Math.ceil(totalCount / perPage) : 1;
+
+		setQuestions({
+			data,
+			pages,
+			next: page < pages ? page + 1 : null,
+			last: pages
+		});
+		return {
+			data,
+			pages,
+			next: page < pages ? page + 1 : null,
+			last: pages
+		};
 	});
+
+	function getParamFromUrl(url, param) {
+		const match = url.match(new RegExp(`[?&]${param}=([^&]*)`));
+		return match ? match[1] : null;
+	}
 
 	const cards = useMemo(() => {
 		if (questions?.data) {
@@ -58,19 +83,19 @@ export const HomePage = () => {
 	const onSortSelectChangeHandler = (e) => {
 		setSortSelectValue(e.target.value);
 
-		setSearchParams(`?_page=1&_per_page=${countSelectValue}&${e.target.value}`);
+		setSearchParams(`?_page=1&_limit=${countSelectValue}&${e.target.value}`);
 	};
 
 	const paginationHandler = (e) => {
 		if (e.target.tagName === 'BUTTON') {
-			setSearchParams(`?_page=${e.target.textContent}&_per_page=${countSelectValue}&${sortSelectValue}`);
+			setSearchParams(`?_page=${e.target.textContent}&_limit=${countSelectValue}&${sortSelectValue}`);
 			controlsContainerRef.current.scrollIntoView({ behavior: 'smooth' });
 		}
 	};
 
 	const onCountChangeHandler = (e) => {
 		setCountSelectValue(e.target.value);
-		setSearchParams(`?_page=1&_per_page=${e.target.value}&${sortSelectValue}`);
+		setSearchParams(`?_page=1&_limit=${e.target.value}&${sortSelectValue}`);
 	};
 
 	return (

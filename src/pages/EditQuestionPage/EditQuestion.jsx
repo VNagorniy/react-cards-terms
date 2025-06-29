@@ -20,6 +20,9 @@ const editCardAction = async (_prevState, formData) => {
 
 		const response = await fetch(`${API_URL}/react/${questionId}`, {
 			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json'
+			},
 			body: JSON.stringify({
 				question: newQuestion.question,
 				answer: newQuestion.answer,
