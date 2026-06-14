@@ -1,45 +1,41 @@
 import js from '@eslint/js';
 import globals from 'globals';
-import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
-import prettier from 'eslint-plugin-prettier';
+import reactRefresh from 'eslint-plugin-react-refresh'; // default import
+import tseslint from 'typescript-eslint';
+import prettierPlugin from 'eslint-plugin-prettier';
 
-export default [
-	{ ignores: ['dist'] },
+export default tseslint.config(
 	{
-		files: ['**/*.{js,jsx}'],
-		languageOptions: {
-			ecmaVersion: 2020,
-			globals: globals.browser,
-			parserOptions: {
-				ecmaVersion: 'latest',
-				ecmaFeatures: { jsx: true },
-				sourceType: 'module'
-			}
-		},
+		ignores: ['dist', 'node_modules']
+	},
+	{
+		files: ['**/*.{js,jsx,ts,tsx}'],
+		extends: [js.configs.recommended, ...tseslint.configs.recommended],
 		plugins: {
 			'react-hooks': reactHooks,
-			'react-refresh': reactRefresh,
-			prettier
+			'react-refresh': reactRefresh, // ✅ так работает в 0.4.x
+			prettier: prettierPlugin
+		},
+		languageOptions: {
+			globals: globals.browser
 		},
 		rules: {
-			...js.configs.recommended.rules,
-			...react.configs.recommended.rules,
-			...react.configs['jsx-runtime'].rules,
 			...reactHooks.configs.recommended.rules,
-			'react/jsx-no-target-blank': 'off',
-			'react/prop-types': 'warn',
-			'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
-			'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+			'no-console': 'warn',
+			'react-refresh/only-export-components': [
+				'warn',
+				{ allowConstantExport: true } // Vite поддерживает это
+			],
 			'prettier/prettier': [
 				'error',
 				{
-					singleQuote: false,
-					printWidth: 130,
-					tabWidth: 2
+					singleQuote: true,
+					trailingComma: 'none',
+					printWidth: 200,
+					useTabs: true
 				}
 			]
 		}
 	}
-];
+);
