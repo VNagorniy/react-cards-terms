@@ -27,6 +27,7 @@ export default tseslint.config(
 				'warn',
 				{ allowConstantExport: true } // Vite поддерживает это
 			],
+			'typescript-eslint/no-explicit-any': 'warn',
 			'prettier/prettier': [
 				'error',
 				{
