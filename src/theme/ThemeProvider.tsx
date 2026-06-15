@@ -1,6 +1,7 @@
 import { createContext, useLayoutEffect, useState, type FC, type ReactNode } from 'react';
 import { THEME_STORAGE } from '../constants/global.constants';
-import { type IThemeContext, THEME_ENUM } from '../types/global.types';
+import { type IThemeContext } from '../types/global.types';
+import { THEME_ENUM } from '../types/global.enums';
 
 export const ThemeContext = createContext<IThemeContext>({
 	theme: THEME_ENUM.LIGHT,
