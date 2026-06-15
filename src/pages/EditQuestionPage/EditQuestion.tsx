@@ -1,4 +1,4 @@
-import { useActionState } from 'react';
+import { useActionState, type FC } from 'react';
 import cls from './EditQuestionPage.module.css';
 import { Loader } from '../../components/Loader';
 import { QuestionForm } from '../../components/QuestionForm';
@@ -8,13 +8,14 @@ import { toast } from 'react-toastify';
 import { dateFormat } from '../../helpers/dateFormat';
 import { useFetch } from '../../hooks/useFetch';
 import { useNavigate } from 'react-router-dom';
+import type { IQuestionCard, IQuestionCardState } from '../../types/global.types';
 
-const editCardAction = async (_prevState, formData) => {
+const editCardAction = async (_prevState: Partial<IQuestionCardState>, formData: FormData) => {
 	try {
 		await delayFn();
 
 		const newQuestion = Object.fromEntries(formData);
-		const resources = newQuestion.resources.trim();
+		const resources = (newQuestion.resources as string).trim();
 		const questionId = newQuestion.questionId;
 		const isClearForm = newQuestion.clearForm;
 
@@ -42,15 +43,19 @@ const editCardAction = async (_prevState, formData) => {
 		toast.success('The question is edited successfully!');
 
 		return isClearForm ? {} : question;
-	} catch (error) {
-		toast.error(error.message);
+	} catch (error: any) {
+		toast.error(error?.message);
 		return {};
 	}
 };
 
-export const EditQuestion = ({ initialState = {} }) => {
+interface IEditQuestionProps {
+	initialState: IQuestionCard;
+}
+
+export const EditQuestion: FC<IEditQuestionProps> = ({ initialState }) => {
 	const navigate = useNavigate();
-	const [formState, formAction, isPending] = useActionState(editCardAction, { ...initialState, clearForm: false });
+	const [formState, formAction, isPending] = useActionState<Partial<IQuestionCardState>, FormData>(editCardAction, { ...initialState, clearForm: false });
 
 	const [removeQuestion, isQuestionRemoving] = useFetch(async () => {
 		await fetch(`${API_URL}/react/${initialState.id}`, {
