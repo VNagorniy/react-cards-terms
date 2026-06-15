@@ -10,8 +10,8 @@ export const Header = () => {
 	const navigate = useNavigate();
 	const { isAuth, setIsAuth } = useAuth();
 
-	const loginHandler = () => {
-		localStorage.setItem(AUTH_STORAGE, !isAuth);
+	const loginHandler = (): void => {
+		localStorage.setItem(AUTH_STORAGE, `${!isAuth}`);
 		setIsAuth(!isAuth);
 	};
 
