@@ -5,7 +5,7 @@ export interface IButtonProps {
 	children: ReactNode;
 	isActive?: boolean;
 	isDisabled?: boolean;
-	onClick: (e: MouseEvent<HTMLButtonElement>) => void;
+	onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const Button: FC<IButtonProps> = ({ onClick, isActive, isDisabled, children }) => {
