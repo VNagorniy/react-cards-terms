@@ -1,11 +1,7 @@
-import { type Dispatch, type FC, type ReactNode, type SetStateAction } from 'react';
+import type { FC, ReactNode } from 'react';
 import { createContext, useState } from 'react';
 import { AUTH_STORAGE } from '../../constants';
-
-export interface IAuthContext {
-	isAuth: boolean;
-	setIsAuth: Dispatch<SetStateAction<boolean>>;
-}
+import type { IAuthContext } from '../../types/global.types';
 
 export const AuthContext = createContext<IAuthContext>({
 	isAuth: false,
