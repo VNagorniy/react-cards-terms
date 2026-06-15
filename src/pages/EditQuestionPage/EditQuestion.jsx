@@ -76,7 +76,7 @@ export const EditQuestion = ({ initialState = {} }) => {
 				<button className={cls.removeBtn} disabled={isPending || isQuestionRemoving} onClick={onRemoveQuestionHandler}>
 					X
 				</button>
-				<QuestionForm formAction={formAction} state={formState} isPending={isPending || isQuestionRemoving} submitBtnText="Edit Question" />
+				<QuestionForm formAction={formAction} cardState={formState} isPending={isPending || isQuestionRemoving} submitBtnText="Edit Question" />
 			</div>
 		</>
 	);

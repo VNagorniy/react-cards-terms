@@ -53,7 +53,7 @@ const AddQuestionPage = () => {
 
 			<h1 className={cls.formTitle}>Add new question</h1>
 			<div className={cls.formContainer}>
-				<QuestionForm formAction={formAction} state={formState} isPending={isPending} submitBtnText="Add Question" />
+				<QuestionForm formAction={formAction} cardState={formState} isPending={isPending} submitBtnText="Add Question" />
 			</div>
 		</>
 	);
