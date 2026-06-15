@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from 'react';
 import { createContext, useState } from 'react';
-import { AUTH_STORAGE } from '../../constants';
+import { AUTH_STORAGE } from '../../constants/global.constants';
 import type { IAuthContext } from '../../types/global.types';
 
 export const AuthContext = createContext<IAuthContext>({
