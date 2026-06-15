@@ -5,7 +5,7 @@ import type { IQuestionCardState } from '../../types/global.types';
 
 export interface IQuestionFormProps {
 	formAction: any;
-	cardState: IQuestionCardState;
+	cardState: Partial<IQuestionCardState>;
 	isPending: boolean;
 	submitBtnText: string;
 }
