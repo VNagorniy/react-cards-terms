@@ -14,8 +14,9 @@ export default tseslint.config(
 		extends: [js.configs.recommended, ...tseslint.configs.recommended],
 		plugins: {
 			'react-hooks': reactHooks,
-			'react-refresh': reactRefresh, // ✅ так работает в 0.4.x
-			prettier: prettierPlugin
+			'react-refresh': reactRefresh,
+			prettier: prettierPlugin,
+			'@typescript-eslint': tseslint.plugin
 		},
 		languageOptions: {
 			globals: globals.browser
