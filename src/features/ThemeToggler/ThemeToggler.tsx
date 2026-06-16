@@ -12,6 +12,8 @@ export const ThemeToggler = () => {
 		const updatedTheme = isChecked ? THEME_ENUM.DARK : THEME_ENUM.LIGHT;
 
 		setTheme(updatedTheme);
+
+		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 		isChecked ? document.body.classList.add('darkLayout') : document.body.classList.remove('darkLayout');
 		localStorage.setItem(THEME_STORAGE, updatedTheme);
 	};

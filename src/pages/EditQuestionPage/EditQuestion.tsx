@@ -43,6 +43,7 @@ const editCardAction = async (_prevState: Partial<IQuestionCardState>, formData:
 		toast.success('The question is edited successfully!');
 
 		return isClearForm ? {} : question;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
 		toast.error(error?.message);
 		return {};
@@ -69,6 +70,7 @@ export const EditQuestion: FC<IEditQuestionProps> = ({ initialState }) => {
 	const onRemoveQuestionHandler = () => {
 		const isRemove = confirm('Are you sure?');
 
+		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 		isRemove && removeQuestion();
 	};
 

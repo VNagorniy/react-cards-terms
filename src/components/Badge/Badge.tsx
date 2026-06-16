@@ -4,6 +4,7 @@ import { BADGE_ENUM } from '../../types/global.enums';
 
 export interface IBadgeProps {
 	children: ReactNode;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	variant: any;
 }
 

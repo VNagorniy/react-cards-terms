@@ -24,6 +24,7 @@ export const ThemeProvider: FC<IThemeProviderProps> = ({ children }) => {
 				setTheme(THEME_ENUM.DARK);
 				document.body.classList.remove('darkLayout');
 			} else {
+				// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 				savedTheme === THEME_ENUM.DARK && document.body.classList.add('darkLayout');
 				setTheme(savedTheme);
 			}

@@ -4,6 +4,7 @@ import cls from './QuestionForm.module.css';
 import type { IQuestionCardState } from '../../types/global.types';
 
 export interface IQuestionFormProps {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	formAction: any;
 	cardState: Partial<IQuestionCardState>;
 	isPending: boolean;
