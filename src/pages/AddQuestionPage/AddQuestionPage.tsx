@@ -39,6 +39,7 @@ const createCardAction = async (_prevState: Partial<IQuestionCardState>, formDat
 		toast.success('New question is successfully created!');
 
 		return isClearForm ? {} : question;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
 		toast.error(error?.message);
 		return {};
