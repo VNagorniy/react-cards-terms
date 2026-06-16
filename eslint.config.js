@@ -16,7 +16,7 @@ export default tseslint.config(
 			'react-hooks': reactHooks,
 			'react-refresh': reactRefresh,
 			prettier: prettierPlugin,
-			'@typescript-eslint': tseslint.plugin
+			'typescript-eslint': tseslint.plugin
 		},
 		languageOptions: {
 			globals: globals.browser
