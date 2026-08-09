@@ -25,8 +25,23 @@ export const HomePage = () => {
 		const response = await fetch(`${API_URL}/${url}`);
 		const questions = await response.json();
 
-		setQuestions(questions);
-		return questions;
+		const totalCount = response.headers.get('X-Total-Count');
+		const perPage = parseInt(url.match(/_limit=(\d+)/)?.[1] || '10');
+		const currentPage = parseInt(url.match(/_page=(\d+)/)?.[1] || '1');
+		const totalPages = totalCount ? Math.ceil(parseInt(totalCount) / perPage) : 0;
+
+		const questionData: IQuestionCardData = {
+			data: questions,
+			first: totalPages > 0 ? 1 : null,
+			prev: currentPage > 1 ? currentPage - 1 : null,
+			next: currentPage < totalPages ? currentPage + 1 : null,
+			last: totalPages > 0 ? totalPages : null,
+			pages: totalPages > 0 ? totalPages : null,
+			items: totalCount ? parseInt(totalCount) : null
+		};
+
+		setQuestions(questionData);
+		return questionData;
 	});
 
 	const cards = useMemo(() => {
@@ -57,16 +72,16 @@ export const HomePage = () => {
 	};
 
 	const onSortSelectChangeHandler = (e: ChangeEvent<HTMLSelectElement>): void => {
-		setSortSelectValue(e.target.value);
-
-		setSearchParams(`?_page=1&_per_page=${countSelectValue}&${e.target.value}`);
+		const value = e.target.value;
+		setSortSelectValue(value);
+		setSearchParams(`?_page=1&_limit=${countSelectValue}&${value}`);
 	};
 
 	const paginationHandler = (e: MouseEvent<HTMLDivElement>): void => {
 		const targetElement = e.target as HTMLElement;
 
 		if (targetElement.tagName === 'BUTTON') {
-			setSearchParams(`?_page=${targetElement.textContent}&_per_page=${countSelectValue}&${sortSelectValue}`);
+			setSearchParams(`?_page=${targetElement.textContent}&_limit=${countSelectValue}&${sortSelectValue}`);
 			controlsContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
 		}
 	};
@@ -84,10 +99,10 @@ export const HomePage = () => {
 				<select value={sortSelectValue} onChange={onSortSelectChangeHandler} className={cls.select}>
 					<option value="">sort by</option>
 					<hr />
-					<option value="_sort=level">level ASC</option>
-					<option value="_sort=-level">level DESC</option>
-					<option value="_sort=completed">completed ASC</option>
-					<option value="_sort=-completed">completed DESC</option>
+					<option value="_sort=level&_order=asc">level ASC</option>
+					<option value="_sort=level&_order=desc">level DESC</option>
+					<option value="_sort=completed&_order=asc">completed ASC</option>
+					<option value="_sort=completed&_order=desc">completed DESC</option>
 				</select>
 
 				<select value={countSelectValue} onChange={onCountChangeHandler} className={cls.select}>

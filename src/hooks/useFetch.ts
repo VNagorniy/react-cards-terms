@@ -14,7 +14,7 @@ export const useFetch = (callback: (...args: any[]) => void): [(...args: any[]) 
 			setError('');
 			await delayFn();
 
-			const response = callback(...args);
+			const response = await callback(...args);
 
 			return response;
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
