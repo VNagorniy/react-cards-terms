@@ -1,14 +1,22 @@
+import type { FC, ReactNode } from 'react';
 import cls from './Badge.module.css';
+import { BADGE_ENUM } from '../../types/global.enums';
 
-export const Badge = ({ variant, children }) => {
+export interface IBadgeProps {
+	children: ReactNode;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	variant: any;
+}
+
+export const Badge: FC<IBadgeProps> = ({ variant, children }) => {
 	switch (variant) {
-		case 'primary':
+		case BADGE_ENUM.PRIMARY:
 			return <div className={`${cls.badge} ${cls.primary}`}>{children}</div>;
-		case 'success':
+		case BADGE_ENUM.SUCCESS:
 			return <div className={`${cls.badge} ${cls.success}`}>{children}</div>;
-		case 'warning':
+		case BADGE_ENUM.WARNING:
 			return <div className={`${cls.badge} ${cls.warning}`}>{children}</div>;
-		case 'alert':
+		case BADGE_ENUM.ALERT:
 			return <div className={`${cls.badge} ${cls.alert}`}>{children}</div>;
 		default:
 			return <div className={cls.badge}>{children}</div>;

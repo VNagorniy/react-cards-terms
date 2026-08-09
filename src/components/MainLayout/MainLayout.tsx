@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 import { Loader } from '../Loader';
 
 export const MainLayout = () => {
-	const currentYear = new Date().getFullYear();
+	const currentYear: number = new Date().getFullYear();
 
 	return (
 		<>

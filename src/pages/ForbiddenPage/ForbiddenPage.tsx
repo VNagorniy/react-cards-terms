@@ -12,6 +12,7 @@ export const ForbiddenPage = () => {
 	const fromPage = location.state?.from || '/';
 
 	useEffect(() => {
+		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 		isAuth && navigate(fromPage, { replace: true });
 	}, [isAuth]);
 
